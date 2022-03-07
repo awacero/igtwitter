@@ -45,7 +45,7 @@ class TwitterDB:
             con = self.connect_database()
             cur = con.cursor()
             sql = """CREATE TABLE %s (
-            event_id TEXT , tweet_id INTEGER PRIMARY KEY,status TEXT)""" % self.db_table_name
+            event_id TEXT , tweet_id INTEGER PRIMARY KEY,status TEXT, gds_target TEXT)""" % self.db_table_name
             logging.debug("Creating table %s" % self.db_table_name)
             cur.execute(sql)
             self.close_database(con)
@@ -59,8 +59,8 @@ class TwitterDB:
         
         con = self.connect_database()
         cur = con.cursor()
-        sql = """INSERT INTO %s (event_id, tweet_id, status ) 
-            VALUES (:event_id,  :tweet_id, :status)""" % self.db_table_name
+        sql = """INSERT INTO %s (event_id, tweet_id, status, gds_target ) 
+            VALUES (:event_id,  :tweet_id, :status, :gds_target)""" % self.db_table_name
 
         try:
             cur.execute(sql, post_dict)

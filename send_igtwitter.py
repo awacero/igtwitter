@@ -85,18 +85,20 @@ class SpoolSendTwitter(spooler.Spooler):
             logger.info("event too old. Limit is %s hours" %self.twitter_config.hour_limit)
             return True
 
-        """Check against the DB if the event has been published already"""        
-        select = "*"
-        where = "event_id='%s'" %event_id
-        rows = self.twt_db.get_post(select, where)
 
-        for row in rows:
-            if row['event_id'] == event_id and row['status'] == event_status:
-                logging.info("Event %s already published" %event_id)
-                return True
 
 
         for address in addresses:
+
+            """Check against the DB if the event has been published already"""        
+            select = "*"
+            where = "event_id='%s'" %event_id
+            rows = self.twt_db.get_post(select, where)
+
+            for row in rows:
+                if row['event_id'] == event_id and row['status'] == event_status and row['gds_target']==address[1]:
+                    logger.info("Event %s already published" %event_id)
+                    return True
 
             try:
                 """Create the api to twitter"""
@@ -106,8 +108,22 @@ class SpoolSendTwitter(spooler.Spooler):
                 logger.info("Conection to twitter ok: %s" %twitter_api)   
                 tweet_id = self.post_event(twitter_api,event_dict)    
 
-                ##Connnect with twt 
-                #check with DB
+                if tweet_id == False:
+                    logger.error("Error posting tweet")
+                    return False
+                else: 
+                    logger.info("Insert tweet_id into DB")
+                    #event_row = {'event_id':'%s', 'tweet_id':'%s' , 'status': '%s', 'gds_target': '%s'}
+                    event_row = {'event_id':event_id, 'tweet_id': tweet_id , 'status': event_status, 'gds_target': address[1]}
+
+                    if self.twt_db.save_post(event_row) == 0:
+                        logger.info("Post info inserted into DB: %s" %event_row)                
+                        return True
+                    else:
+                        logger.info("Failed to insert tweet info into DB")
+                        return False
+                        
+
             except Exception as e:
 
                 logger.error("Error in spool: %s" %str(e))
@@ -135,6 +151,7 @@ class SpoolSendTwitter(spooler.Spooler):
             return tweet_id.id
         except Exception as e:
             logger.error("Error trying to post to twitter : %s" %str(e))
+            return False
 
 
     def check_antiquity(self, limit_date_time):
