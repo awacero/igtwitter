@@ -1,0 +1,123 @@
+#!/usr/bin/env seiscomp-python
+
+import sys,os
+
+sys.path.append( os.path.join(os.environ['SEISCOMP_ROOT'],'share/gds/tools/')) 
+
+import seiscomp3.Core
+import seiscomp3.DataModel
+from lib import bulletin
+from lib.filter import Filter
+
+import pytz
+from datetime import datetime
+from ig_gds_utilities import ig_utilities as utilities 
+
+import logging
+import logging.config
+
+#logging.config.dictConfig() , disable_existing_loggers=True)
+logging_file = os.path.join(os.environ['SEISCOMP_ROOT'],'var/log/','gds_service_igtwitter.log')
+logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
+logger = logging.getLogger("igtwitter")
+logger.setLevel(logging.DEBUG)
+
+class igtwitterFilter(Filter):
+
+    def filter(self,event_parameter):
+
+        logger.info("start igtwitterFilter")
+        try:
+            event = self.parseEventParameters(event_parameter)
+            event_bulletin = bulletin.Bulletin()
+            event_bulletin.plain = "#SISMO ID:{id} {mode} {time_local} TL Magnitud: {magVal}" \
+                            " Profundidad: {depth} km, {nearest_city}, Latitud: {lat} Longitud:{lon}." \
+                            " {event_country} Sintió este sismo? Repórtelo en {survey_url} ".format(**event)
+            logger.info(event_bulletin.plain)
+            return event_bulletin
+
+        except Exception as e:
+            logger.error("Error in igtwitterFilter was: %s" %str(e))
+    
+
+    def parseEventParameters(self,event_parameter):
+
+        event={}
+        event["id"]     = ""
+        event["region"] = ""
+        event["magVal"] = ""
+        event["time"]   = ""
+        event["lat"]    = ""
+        event["lon"]    = ""
+        event["depth"]  = ""
+        event["mode"]   = ""
+        event["type"] = ""
+        event["nearest_city"] = ""
+        event["time_local"] = ""
+        event['survey_url'] = ""
+
+        if event_parameter.eventCount()>1:
+            logger.info("More than one event. Return empty dictionary")
+            return event
+
+        event_object = event_parameter.event(0)
+        event["id"] = event_object.publicID()
+
+        for j in range(0,event_object.eventDescriptionCount()):
+            ed = event_object.eventDescription(j)
+            if ed.type() == seiscomp3.DataModel.REGION_NAME:
+                event["region"] = ed.text()
+                break
+
+        magnitude = seiscomp3.DataModel.Magnitude.Find(event_object.preferredMagnitudeID())
+        if magnitude:
+            event['magVal'] = "%0.1f" %magnitude.magnitude().value()
+
+        origin = seiscomp3.DataModel.Origin.Find(event_object.preferredOriginID())
+        if origin:
+            event["time"] = origin.time().value().toString("%Y-%m-%d %T")
+            event["time_local"] = self.get_local_datetime(event["time"]).strftime('%Y-%m-%d %H:%M:%S')
+            event["lat"]  = "%.2f" % origin.latitude().value() 
+            event["lon"]  = "%.2f" % origin.longitude().value()
+
+            try: 
+                event["depth"] = "%.0f" % origin.depth().value()
+            except seiscomp3.Core.ValueException: 
+                pass
+            try: 
+                event["mode"]  = "%s" %seiscomp3.DataModel.EEvaluationModeNames.name(event_parameter.origin(0).evaluationMode())
+            except: 
+                event["mode"] = "automatic"
+            try:
+                typeDescription = event_object.type()
+                event["type"] = "%s" %seiscomp3.DataModel.EEventTypeNames.name(typeDescription)
+            except: 
+                event["type"] = "NOT SET"
+            
+            event["nearest_city"] = utilities.get_closest_city(origin.latitude().value(),origin.longitude().value())
+            event["survey_url"] = str(utilities.get_survey_url(self.get_local_datetime(event['time']),event['id']))
+            event["event_country"] = utilities.get_message_by_country_twitter(origin.latitude().value(),origin.longitude().value())
+            event["mode"] = self.status(event["mode"])
+        return event
+
+
+    def status(self,stat):
+        if stat == 'automatic':
+            stat = 'Preliminar'
+        elif stat == 'manual':
+            stat = 'Revisado'
+        else:
+            stat = '-'
+        return stat
+
+    def get_local_datetime(self,datetime_utc_str):
+        ##REPLACE BY A CONFIG PARAMETER 
+        
+        local_zone=pytz.timezone('America/Guayaquil')
+        datetime_UTC=datetime.strptime(datetime_utc_str,'%Y-%m-%d %H:%M:%S')
+        datetime_EC=datetime_UTC.replace(tzinfo=pytz.utc).astimezone(local_zone)
+        return datetime_EC
+
+if __name__ == "__main__":
+    app = igtwitterFilter()
+    sys.exit(app())
