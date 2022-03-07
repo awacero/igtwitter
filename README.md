@@ -11,8 +11,10 @@ Install the following libraries as user modules
 ``` bash
 $ python3 -m pip install --user ig_gds_utilities  
 $ python3 -m pip install --user tweepy  
+```
 
 This package is required to check sqlite database from Linux bash
+``` bash
 # apt install sqlite3  
 ```
 
