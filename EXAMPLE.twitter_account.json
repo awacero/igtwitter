@@ -1,0 +1,17 @@
+{
+
+"ACCOUNT_NAME1_AS_GDS":{
+        "api_key":"XXXXXXXXXX",
+        "api_secret":"XXXXXXXX",
+        "access_token":"XXXXXXXX",
+        "secret_token":"XXXXXXX"
+},
+
+
+"ACCOUNT_NAME_AS_GDS":{
+        "api_key":"XXXXXXXXXX",
+        "api_secret":"XXXXXXXX",
+        "access_token":"XXXXXXXX",
+        "secret_token":"XXXXXXX"
+}
+}
