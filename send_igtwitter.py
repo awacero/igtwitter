@@ -74,8 +74,15 @@ class SpoolSendTwitter(spooler.Spooler):
         event_id = event_info[1].split(":")[1]
         event_status = event_info[2]
         event_datetime = datetime.strptime("%s %s" %(event_info[3],event_info[4]),"%Y-%m-%d %H:%M:%S")
+
         ##Create a function to create/check the image in case eqevents isn't ready.
+
         event_image_path = "%s/%s/%s-map.png" %(self.twitter_config.eqevent_path,event_id,event_id)
+
+        if not os.path.isfile(event_image_path):
+             event_image_path = "%s/%s/%s-map.jpg" %(self.twitter_config.eqevent_path,event_id,event_id)
+
+
         event_dict = {'text':'%s' %bulletin_object.plain, 'path':event_image_path}
 
         logger.info("event info to look in db: %s %s %s" %(event_id,event_status,event_datetime))

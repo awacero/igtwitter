@@ -16,15 +16,27 @@ from ig_gds_utilities import ig_utilities as utilities
 import logging
 import logging.config
 
-#logging.config.dictConfig() , disable_existing_loggers=True)
 logging_file = os.path.join(os.environ['SEISCOMP_ROOT'],'var/log/','gds_service_igtwitter.log')
 logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
 logger = logging.getLogger("igtwitter")
 logger.setLevel(logging.DEBUG)
 
-class igtwitterFilter(Filter):
+
+class TwitterFilterConfig():
+    
+    def __init__(self):
+
+        self.config = utilities.read_parameters(utilities.config_path)
+
+
+
+class TwitterFilter(Filter):
 
     def filter(self,event_parameter):
+
+        twt_cfg = utilities.read_parameters(utilities.config_path)
+        
+
 
         logger.info("start igtwitterFilter")
         try:
@@ -33,12 +45,29 @@ class igtwitterFilter(Filter):
             event_bulletin.plain = "#SISMO ID:{id} {mode} {time_local} TL Magnitud: {magVal}" \
                             " Profundidad: {depth} km, {nearest_city}, Latitud: {lat} Longitud:{lon}." \
                             " {event_country} Sintió este sismo? Repórtelo en {survey_url} ".format(**event)
-            logger.info(event_bulletin.plain)
+            logger.info("Create map if it does not exist yet")
+
+            event_image_path = "{0}/{id}/{id}-map.png".format(twt_cfg['ig_info']['eqevent_page_path'],**event)          
+            event_path = "{0}/{id}/".format(twt_cfg['ig_info']['eqevent_page_path'],**event)
+            event_info = {'event_id':event['id']}
+
+            if not os.path.isfile(event_image_path):
+                logger.info("create map ")
+                if not os.path.exists(event_path):
+                    os.makedirs(event_path)
+                map_result = utilities.generate_google_map(event['lat'],event['lon'],event_info)
+
+                if map_result == False:
+                    map_result = utilities.generate_gis_map(event['lat'],event['lon'],event_info)
+            
             return event_bulletin
 
         except Exception as e:
             logger.error("Error in igtwitterFilter was: %s" %str(e))
-    
+            return None
+        
+
+
 
     def parseEventParameters(self,event_parameter):
 
@@ -119,5 +148,5 @@ class igtwitterFilter(Filter):
         return datetime_EC
 
 if __name__ == "__main__":
-    app = igtwitterFilter()
+    app = TwitterFilter()
     sys.exit(app())
