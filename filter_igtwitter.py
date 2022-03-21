@@ -43,8 +43,8 @@ class TwitterFilter(Filter):
             event = self.parseEventParameters(event_parameter)
             event_bulletin = bulletin.Bulletin()
             event_bulletin.plain = "#SISMO ID:{id} {mode} {time_local} TL Magnitud: {magVal}" \
-                            " Profundidad: {depth} km, {nearest_city}, Latitud: {lat} Longitud:{lon}." \
-                            " {event_country} Sintió este sismo? Repórtelo en {survey_url} ".format(**event)
+                            " Profundidad: {depth} km, {nearest_city}, Latitud: {lat} Longitud:{lon}" \
+                            " {event_country}. Sintió este sismo? Repórtelo en {survey_url} ".format(**event)
             logger.info("Create map if it does not exist yet")
 
             event_image_path = "{0}/{id}/{id}-map.png".format(twt_cfg['ig_info']['eqevent_page_path'],**event)          
