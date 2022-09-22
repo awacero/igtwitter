@@ -7,12 +7,17 @@ import seiscomp3.DataModel
 import logging
 import logging.config
 import pytz
-from lib import bulletin
-from lib.filter import Filter
+
 from datetime import datetime
 from ig_gds_utilities import ig_utilities as utilities
 
 sys.path.append(os.path.join(os.environ['SEISCOMP_ROOT'], 'share/gds/tools/'))
+###
+# This import is located here due to local libraries that 
+# CAN NOT be appended to PYTHONPATH due to name repetition
+###
+from lib import bulletin
+from lib.filter import Filter
 
 logging_file = os.path.join(os.environ['SEISCOMP_ROOT'], 'var/log/', 'gds_service_igtwitter.log')
 logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
