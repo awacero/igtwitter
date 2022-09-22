@@ -30,7 +30,7 @@ class TwitterFilterConfig():
         Load config parameters
         
         :param self TwitterFilterConfig: Configuration object
-        :returns: configuration loader
+        :returns: configuration loaderr
         """
 
         self.config = utilities.read_parameters(utilities.config_path)
