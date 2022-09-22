@@ -26,6 +26,12 @@ logger.setLevel(logging.DEBUG)
 class TwitterConfig:
 
     def __init__(self, config):
+        """
+        Load Twitter config parameters
+
+        :param self TwitterConfig: Configuration object
+        :returns: configuration loader
+        """
         prefix = "twitter"
         try:
             self.accounts_file = config.get(prefix, "accounts_file")
@@ -45,6 +51,12 @@ class TwitterConfig:
 class SpoolSendTwitter(spooler.Spooler):
 
     def __init__(self):
+        """
+        ???
+
+        :param self SpoolSendTwitter: ...
+        :returns: ???
+        """
 
         spooler.Spooler.__init__(self)
         self.twitter_config = TwitterConfig(self._config)
@@ -62,6 +74,16 @@ class SpoolSendTwitter(spooler.Spooler):
             logger.error("Error creating TwitterDB object: %s" % str(e))
 
     def spool(self, addresses, content):
+        """
+        Take an addresses list and check against the DB if the event has been published
+        alredy, also read the content element with a bulletin object to extract info
+        about the event
+
+        :param addresses: list
+        :param content:
+        :returns: True or False
+        """
+
         logger.info("##Start spool() for SpoolSendTwitter with: %s" % (addresses))
 
         try:
@@ -134,6 +156,13 @@ class SpoolSendTwitter(spooler.Spooler):
                 raise Exception("Error in spool: %s" % str(e))
 
     def connect_twitter(self, token_dict):
+        """
+        Takes a token_dict which is a dictionary of tokens and
+        is then used to authenticate to the twitter api
+
+        :param token_dict: dictionary
+        :returns: twitter_api
+        """
 
         try:
             auth = tweepy.OAuthHandler(token_dict['api_key'], token_dict['api_secret'])
@@ -146,6 +175,14 @@ class SpoolSendTwitter(spooler.Spooler):
             raise Exception("Error trying to connect twitter: %s" % str(e))
 
     def post_event(self, twitter_api, event_dict):
+        """
+        Takes a twitter_api to use api twitter and the publish a tweet with info of
+        event_dict
+
+        :param twitter_api: object that contains credentials of authentication for the Api twitter
+        :param event_dict: dictionary
+        :returns: tweet_id.id
+        """
 
         try:
             logger.info("Start post tweet")
@@ -159,8 +196,10 @@ class SpoolSendTwitter(spooler.Spooler):
 
     def check_antiquity(self, limit_date_time):
         """
-        Check the age of a event
-        Parameters: limit_date_time - datetime object
+        Checks the age of an event and validates it with limit_date_time
+
+        param: limit_date_time: datetime object
+        return: True or False
         """
         date_check = datetime.now() - timedelta(hours=self.twitter_config.hour_limit)
 
