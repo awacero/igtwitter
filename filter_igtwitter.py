@@ -13,16 +13,9 @@ from datetime import datetime
 from ig_gds_utilities import ig_utilities as utilities
 
 
-<<<<<<< HEAD
-sys.path.append(os.path.join(os.environ['SEISCOMP_ROOT'], 'share/gds/tools/'))
-
-
-logging_file = os.path.join(os.environ['SEISCOMP_ROOT'], 'var/log/', 'gds_service_igtwitter.log')
-=======
 
 
 logging_file = os.path.join(os.environ['SEISCOMP_ROOT'],'var/log/','gds_service_igtwitter.log')
->>>>>>> dd4f55c40efc94b49991168c3cf4c6ce36991797
 logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
 logger = logging.getLogger("igtwitter")
 logger.setLevel(logging.DEBUG)
@@ -48,12 +41,10 @@ class TwitterFilter(Filter):
         Take an event_parameter object and return an event_bulletin object
 
         :param event_parameter: SwigPyObjects not serializable
-        :returns: event_bulletin
+        :returns: event_bulletin 
         """
 
         twt_cfg = utilities.read_parameters(utilities.config_path)
-<<<<<<< HEAD
-=======
         '''
         import sys
         print("Event parameter passed by gds")
@@ -64,7 +55,6 @@ class TwitterFilter(Filter):
         pickle.dump(event_parameter,event_parameter_file)
         '''
 
->>>>>>> dd4f55c40efc94b49991168c3cf4c6ce36991797
 
         logger.info("start igtwitterFilter")
         try:
