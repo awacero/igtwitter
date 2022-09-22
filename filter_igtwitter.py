@@ -24,7 +24,14 @@ logger.setLevel(logging.DEBUG)
 
 class TwitterFilterConfig():
     
+
     def __init__(self):
+        """
+        Load config parameters
+        
+        :param self TwitterFilterConfig: Configuration object
+        :returns: configuration loader
+        """
 
         self.config = utilities.read_parameters(utilities.config_path)
 
@@ -33,6 +40,12 @@ class TwitterFilterConfig():
 class TwitterFilter(Filter):
 
     def filter(self,event_parameter):
+        """
+        Take an event_parameter object and return an event_bulletin object
+
+        :param event_parameter: SwigPyObjects not serializable
+        :returns: event_bulletin
+        """
 
         twt_cfg = utilities.read_parameters(utilities.config_path)
         
