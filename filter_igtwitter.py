@@ -12,6 +12,8 @@ from lib.filter import Filter
 from datetime import datetime
 from ig_gds_utilities import ig_utilities as utilities
 
+sys.path.append(os.path.join(os.environ['SEISCOMP_ROOT'], 'share/gds/tools/'))
+
 logging_file = os.path.join(os.environ['SEISCOMP_ROOT'], 'var/log/', 'gds_service_igtwitter.log')
 logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
 logger = logging.getLogger("igtwitter")
