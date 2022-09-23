@@ -45,7 +45,9 @@ class TwitterFilter(Filter):
         Take an event_parameter object and return an event_bulletin object
 
         :param event_parameter: SwigPyObjects not serializable
+        :type event_parameter: obj
         :returns: event_bulletin
+        :rtype: bulletin object
         """
 
         twt_cfg = utilities.read_parameters(utilities.config_path)
@@ -92,7 +94,9 @@ class TwitterFilter(Filter):
         Take an event_parameter object and return an event dictionary
 
         :param event_parameter: SwigPyObjects not serializable
+        :type event_parameter: obj
         :returns: event
+        :rtype: dictionary
         """
 
         event = {}
@@ -158,7 +162,9 @@ class TwitterFilter(Filter):
         Take an stat string and return the same stat string with reassigned value
 
         :param stat: String
+        :type stat: str
         :returns: stat
+        :rtype: str
         """
         if stat == 'automatic':
             stat = 'Preliminar'
@@ -173,7 +179,9 @@ class TwitterFilter(Filter):
         Take a datetime_utc_str string and return a datetime_EC string
 
         :param datetime_utc_str: String
+        :type datetime_utc_str: str
         :returns: datetime_EC
+        :rtype: date_time
         """
         # REPLACE BY A CONFIG PARAMETER
 

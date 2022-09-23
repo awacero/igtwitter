@@ -22,7 +22,6 @@ logging.basicConfig(filename=logging_file, format='%(asctime)s %(message)s')
 logger = logging.getLogger("igtwitter")
 logger.setLevel(logging.DEBUG)
 
-
 class TwitterConfig:
 
     def __init__(self, config):
@@ -52,10 +51,11 @@ class SpoolSendTwitter(spooler.Spooler):
 
     def __init__(self):
         """
-        ???
+        Load send_igtwitter config and read twitter account info,
+        also create dbTwitter object
 
-        :param self SpoolSendTwitter: ...
-        :returns: ???
+        :param self SpoolSendTwitter: 
+        :returns: None
         """
 
         spooler.Spooler.__init__(self)
@@ -79,9 +79,12 @@ class SpoolSendTwitter(spooler.Spooler):
         alredy, also read the content element with a bulletin object to extract info
         about the event
 
-        :param addresses: list
-        :param content:
-        :returns: True or False
+        :param addresses: list.
+        :type addresses: list[str]
+        :param content: 
+        :returns: True
+        :returns: False
+        :rtype: boolean
         """
 
         logger.info("##Start spool() for SpoolSendTwitter with: %s" % (addresses))
@@ -160,7 +163,8 @@ class SpoolSendTwitter(spooler.Spooler):
         Takes a token_dict which is a dictionary of tokens and
         is then used to authenticate to the twitter api
 
-        :param token_dict: dictionary
+        :param token_dict: token dictionary
+        :type token_dict: dict
         :returns: twitter_api
         """
 
@@ -175,13 +179,17 @@ class SpoolSendTwitter(spooler.Spooler):
             raise Exception("Error trying to connect twitter: %s" % str(e))
 
     def post_event(self, twitter_api, event_dict):
+
         """
-        Takes a twitter_api to use api twitter and the publish a tweet with info of
+        Takes a twitter_api to use api twitter and then publish a tweet with info of
         event_dict
 
         :param twitter_api: object that contains credentials of authentication for the Api twitter
-        :param event_dict: dictionary
+        :type twitter_api: obj
+        :param event_dict: event dictionary
+        :type event_dict: dict
         :returns: tweet_id.id
+        :rtype: int
         """
 
         try:
@@ -198,8 +206,11 @@ class SpoolSendTwitter(spooler.Spooler):
         """
         Checks the age of an event and validates it with limit_date_time
 
-        param: limit_date_time: datetime object
-        return: True or False
+        :param limit_date_time: datetime object
+        :type limit_date_time: obj
+        :returns: True
+        :returns: False
+        :rtype: boolean
         """
         date_check = datetime.now() - timedelta(hours=self.twitter_config.hour_limit)
 

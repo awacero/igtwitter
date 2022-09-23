@@ -2,7 +2,7 @@
 from  db_igtwitter import TwitterDB
 import os
 home = os.environ['HOME']
-config_file = '/%s/proyectos_codigo/igtwitter/send_igtwitter.cfg' %home
+config_file = '/%s/Documents/ProjectsPasantias/igtwitter/send_igtwitter.cfg' %home
 
 def test_object():
 
