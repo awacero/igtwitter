@@ -7,6 +7,9 @@ GDS or the operator will decide wheter or not the tweet must be posted. There wi
 
 
 ## Requirements
+
+The project must use the same Python version used by SEISCOMP-PYTHON (2022.09: Python 3.8)
+
 Install the following libraries as user modules
 
 ``` bash
