@@ -42,7 +42,7 @@ class TwitterFilter(Filter):
 
     def filter(self, event_parameter):
         """
-        Take an event_parameter object and return an event_bulletin object
+        Take an ``event_parameter`` object and return an ``event_bulletin`` object.
 
         :param event_parameter: SwigPyObjects not serializable
         :type event_parameter: obj
@@ -91,7 +91,7 @@ class TwitterFilter(Filter):
 
     def parseEventParameters(self, event_parameter):
         """
-        Take an event_parameter object and return an event dictionary
+        Take an ``event_parameter`` object and return an ``event`` dictionary.
 
         :param event_parameter: SwigPyObjects not serializable
         :type event_parameter: obj
@@ -159,7 +159,7 @@ class TwitterFilter(Filter):
 
     def status(self, stat):
         """
-        Take an stat string and return the same stat string with reassigned value
+        Take an ``stat`` string and return the same stat string with reassigned value.
 
         :param stat: String
         :type stat: str
@@ -176,7 +176,7 @@ class TwitterFilter(Filter):
 
     def get_local_datetime(self, datetime_utc_str):
         """
-        Take a datetime_utc_str string and return a datetime_EC string
+        Take a ``datetime_utc_str`` string and return a ``datetime_EC string``.
 
         :param datetime_utc_str: String
         :type datetime_utc_str: str

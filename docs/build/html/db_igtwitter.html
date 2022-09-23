@@ -52,7 +52,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="db_igtwitter.TwitterDB.close_database">
 <span class="sig-name descname"><span class="pre">close_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_igtwitter.TwitterDB.close_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close database conection</p>
+<dd><p>Close database conection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>con</strong> (<em>obj</em>) – database object</p>
@@ -63,7 +63,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="db_igtwitter.TwitterDB.connect_database">
 <span class="sig-name descname"><span class="pre">connect_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#db_igtwitter.TwitterDB.connect_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allow connection to database</p>
+<dd><p>Allow connection to database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>con</p>
@@ -82,7 +82,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="db_igtwitter.TwitterDB.dict_factory">
 <span class="sig-name descname"><span class="pre">dict_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_igtwitter.TwitterDB.dict_factory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a row of a database to a dictionary using a query</p>
+<dd><p>Convert a row of a database to a dictionary using a query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -102,7 +102,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="db_igtwitter.TwitterDB.get_post">
 <span class="sig-name descname"><span class="pre">get_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_igtwitter.TwitterDB.get_post" title="Permalink to this definition">¶</a></dt>
-<dd><p>It makes a call to send_igtwitter and checks if an event has already been
+<dd><p>It makes a call to <code class="docutils literal notranslate"><span class="pre">send_igtwitter</span></code> and checks if an event has already been
 published previously by querying the database using the id to compare,
 finally it returns a list of events.</p>
 <dl class="field-list simple">
@@ -142,7 +142,7 @@ it creates a table inside the database to store the events.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="db_igtwitter.TwitterDB.save_post">
 <span class="sig-name descname"><span class="pre">save_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_igtwitter.TwitterDB.save_post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows to insert a new event to the database</p>
+<dd><p>It allows to insert a new event in the table inside the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>post_dict</strong> (<em>dict</em>) – post dictionary</p>

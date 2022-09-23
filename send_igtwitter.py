@@ -51,7 +51,7 @@ class SpoolSendTwitter(spooler.Spooler):
 
     def __init__(self):
         """
-        Load send_igtwitter config and read twitter account info,
+        Load ``send_igtwitter`` config and read twitter account info,
         also create dbTwitter object
 
         :param self SpoolSendTwitter: 
@@ -76,7 +76,7 @@ class SpoolSendTwitter(spooler.Spooler):
     def spool(self, addresses, content):
         """
         Take an addresses list and check against the DB if the event has been published
-        alredy, also read the content element with a bulletin object to extract info
+        alredy, also read the content element with a ``bulletin object`` to extract info
         about the event
 
         :param addresses: list.
@@ -160,7 +160,7 @@ class SpoolSendTwitter(spooler.Spooler):
 
     def connect_twitter(self, token_dict):
         """
-        Takes a token_dict which is a dictionary of tokens and
+        Takes a ``token_dict`` which is a dictionary of tokens and
         is then used to authenticate to the twitter api
 
         :param token_dict: token dictionary
@@ -181,7 +181,7 @@ class SpoolSendTwitter(spooler.Spooler):
     def post_event(self, twitter_api, event_dict):
 
         """
-        Takes a twitter_api to use api twitter and then publish a tweet with info of
+        Takes a ``twitter_api`` object to use api twitter and then publish a tweet with info of
         event_dict
 
         :param twitter_api: object that contains credentials of authentication for the Api twitter
@@ -204,7 +204,7 @@ class SpoolSendTwitter(spooler.Spooler):
 
     def check_antiquity(self, limit_date_time):
         """
-        Checks the age of an event and validates it with limit_date_time
+        Checks the age of an event and validates it with ``limit_date_time``.
 
         :param limit_date_time: datetime object
         :type limit_date_time: obj

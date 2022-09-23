@@ -1,13 +1,13 @@
-
 from asyncore import file_dispatcher
 import sqlite3
 import os
 import logging
-from ig_gds_utilities import ig_utilities as utilities 
+from ig_gds_utilities import ig_utilities as utilities
+
 
 class TwitterDB:
 
-    def __init__(self,config):
+    def __init__(self, config):
 
         """
         Load necesary parameters from send_igtwitter.cfg
@@ -19,14 +19,13 @@ class TwitterDB:
             self.db_file = db_config['twitter_db']['db_file']
             self.db_table_name = db_config['twitter_db']['db_table_name']
         else:
-            
-            self.db_file = config.get('twitter_db','db_file')
+            self.db_file = config.get('twitter_db', 'db_file')
             self.db_table_name = config.get('twitter_db', 'db_table_name')
         self.init_database()
 
     def connect_database(self):
         """
-        Allow connection to database
+        Allow connection to database.
 
         :returns: con
         :rtype: sqlite3 object
@@ -42,10 +41,10 @@ class TwitterDB:
         logging.debug("connection to DB established")
         return con
 
-    def close_database(self,con):
+    def close_database(self, con):
         """
-        Close database conection
-        
+        Close database conection.
+
         :param con: database object
         :type con: obj
         """
@@ -91,7 +90,7 @@ class TwitterDB:
         """
         con = self.connect_database()
         cur = con.cursor()
-        sql = """INSERT INTO %s (event_id, tweet_id, status, gds_target ) 
+        sql = """INSERT INTO %s (event_id, tweet_id, status, gds_target )
             VALUES (:event_id,  :tweet_id, :status, :gds_target)""" % self.db_table_name
 
         try:
@@ -104,11 +103,9 @@ class TwitterDB:
             logging.debug("Failed to add event %s : %s" % (post_dict['event_id'], str(e)))
             return -1
 
-
-        
-    def dict_factory(self,cursor, row):
+    def dict_factory(self, cursor, row):
         """
-        Convert a row of a database to a dictionary using a query
+        Convert a row of a database to a dictionary using a query.
 
         :param cursor: element that will represent a set of data determined by a query
         :param row: database row
@@ -121,13 +118,12 @@ class TwitterDB:
             d[col[0]] = row[idx]
         return d
 
-
     def get_post(self, select="*", where=None):
         """
-        It makes a call to send_igtwitter and checks if an event has already been
+        It makes a call to ``send_igtwitter`` and checks if an event has already been
         published previously by querying the database using the id to compare,
         finally it returns a list of events.
-        
+
         :param select="*": query instruction to select all elements
         :type select="*": str
         :param where=None: query condition
@@ -147,12 +143,10 @@ class TwitterDB:
         self.close_database(con)
         return events
 
-    def delete_post(self,event_id):
-        """
-        """
+    def delete_post(self, event_id):
         con = self.connect_database()
         cur = con.cursor()
-        sql = "DELETE FROM %s WHERE event_id='%s'" %(self.db_table_name,event_id)
+        sql = "DELETE FROM %s WHERE event_id='%s'" % (self.db_table_name, event_id)
         try:
             cur.execute(sql)
             con.commit()
@@ -160,10 +154,8 @@ class TwitterDB:
         except sqlite3.Error as e:
             return str(e)
 
-    def update_post(self,post_dict, column, value):
-        """
-        """
-        #post_dict["table"] = configFaceTweet.tw_dbtable
+    def update_post(self, post_dict, column, value):
+        # post_dict["table"] = configFaceTweet.tw_dbtable
         con = self.connect_database()
         cur = con.cursor()
         sql = """UPDATE %s SET %s = %s WHERE event_id= '%s'
