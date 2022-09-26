@@ -5,7 +5,7 @@ The files send_igtwitter.cfg and twitter_account.json must be configured before 
 
 GDS or the operator will decide wheter or not the tweet must be posted. There will be one tweet for the automatic (preliminar) event and another for the manual (revisado) event. If the event is older than hour_limit, there will be no publication. 
 
-**See Documentation:** [igTwitter Documentation](https://awacero.github.io/igtwitter/index.html)
+**View Documentation:** [igTwitter Documentation](https://awacero.github.io/igtwitter/index.html)
 
 ## Requirements
 
