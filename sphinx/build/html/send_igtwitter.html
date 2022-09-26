@@ -1,0 +1,189 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>send_igtwitter module &#8212; igtwitter 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">igtwitter 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">send_igtwitter module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-send_igtwitter">
+<span id="send-igtwitter-module"></span><h1>send_igtwitter module<a class="headerlink" href="#module-send_igtwitter" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="send_igtwitter.SpoolSendTwitter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">send_igtwitter.</span></span><span class="sig-name descname"><span class="pre">SpoolSendTwitter</span></span><a class="headerlink" href="#send_igtwitter.SpoolSendTwitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Spooler</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="send_igtwitter.SpoolSendTwitter.check_antiquity">
+<span class="sig-name descname"><span class="pre">check_antiquity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit_date_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_igtwitter.SpoolSendTwitter.check_antiquity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the age of an event and validates it with <code class="docutils literal notranslate"><span class="pre">limit_date_time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit_date_time</strong> (<em>obj</em>) – datetime object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="send_igtwitter.SpoolSendTwitter.connect_twitter">
+<span class="sig-name descname"><span class="pre">connect_twitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_igtwitter.SpoolSendTwitter.connect_twitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a <code class="docutils literal notranslate"><span class="pre">token_dict</span></code> which is a dictionary of tokens and
+is then used to authenticate to the twitter api</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token_dict</strong> (<em>dict</em>) – token dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>twitter_api</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="send_igtwitter.SpoolSendTwitter.post_event">
+<span class="sig-name descname"><span class="pre">post_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">twitter_api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_igtwitter.SpoolSendTwitter.post_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a <code class="docutils literal notranslate"><span class="pre">twitter_api</span></code> object to use api twitter and then publish a tweet with info of
+event_dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>twitter_api</strong> (<em>obj</em>) – object that contains credentials of authentication for the Api twitter</p></li>
+<li><p><strong>event_dict</strong> (<em>dict</em>) – event dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tweet_id.id</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="send_igtwitter.SpoolSendTwitter.spool">
+<span class="sig-name descname"><span class="pre">spool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addresses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_igtwitter.SpoolSendTwitter.spool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take an addresses list and check against the DB if the event has been published
+alredy, also read the content element with a <code class="docutils literal notranslate"><span class="pre">bulletin</span> <span class="pre">object</span></code> to extract info
+about the event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addresses</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – list.</p></li>
+<li><p><strong>content</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="send_igtwitter.TwitterConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">send_igtwitter.</span></span><span class="sig-name descname"><span class="pre">TwitterConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_igtwitter.TwitterConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/send_igtwitter.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">igtwitter 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">send_igtwitter module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, wacero,jperez.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>
