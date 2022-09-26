@@ -9,12 +9,22 @@ igtwitter's documentation!
    :target: index.html
    :alt: alt text
    :class: banner
-   :width: 100px
+   :width: 600px
  
-ObsPy is an open-source project dedicated to provide a **Python framework for
-processing seismological data**. It provides parsers for common file formats,
-clients to access data centers and seismological signal processing routines
-which allow the manipulation of seismological time series.
+GDS service to publish seismic information using a twitter account. This code was previously a plugin of EQEVENTS, but that code was modified to be used with GDS.
+
+GDS or the operator will decide wheter or not the tweet must be posted. There will be one tweet for the automatic (preliminar) event and another for the manual (revisado) event. If the event is older than hour_limit, there will be no publication.
+
+Result:
+------------------------------------
+
+If the publication works as expected, this should be posted in the twitter account.
+
+.. image:: tweet_example.png
+   :target: index.html
+   :alt: alt text
+   :class: banner
+   :width: 500px
 
 .. raw:: html
 
